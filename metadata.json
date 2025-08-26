@@ -1,0 +1,5 @@
+{
+  "name": "Copy of Expense & Profit Tracker",
+  "description": "A web application to track driver expenses, ride earnings, and calculate profits. It features data entry, a visual dashboard with charts, and options to export records to PDF or CSV.",
+  "requestFramePermissions": []
+}
