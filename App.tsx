@@ -7,6 +7,7 @@ import Tabs from './components/Tabs';
 import Dashboard from './components/Dashboard';
 import DataEntry from './components/DataEntry';
 import Records from './components/Records';
+import Footer from './components/Footer';
 
 const App: React.FC = () => {
     const [transactions, setTransactions] = useLocalStorage<Transaction[]>('expenseData', []);
@@ -38,9 +39,9 @@ const App: React.FC = () => {
 
 
     return (
-        <div className="bg-slate-50 min-h-screen text-slate-800 pb-24">
+        <div className="bg-slate-50 min-h-screen text-slate-800 flex flex-col">
             <Header />
-            <main className="container mx-auto px-4">
+            <main className="container mx-auto px-4 flex-grow">
                 <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
                 <div className="mt-4">
@@ -49,6 +50,7 @@ const App: React.FC = () => {
                     {activeTab === 'records' && <Records transactions={transactions} onDeleteTransaction={handleDeleteTransaction} summary={summary} />}
                 </div>
             </main>
+            <Footer />
             <button
                 onClick={() => setActiveTab('data')}
                 className="fixed bottom-6 right-6 w-14 h-14 bg-violet-600 text-white rounded-2xl shadow-lg hover:bg-violet-700 active:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-opacity-50 flex items-center justify-center transition-transform transform hover:scale-105"

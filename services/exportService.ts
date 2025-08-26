@@ -58,6 +58,20 @@ export const exportToPdf = (transactions: Transaction[], summary: Summary) => {
         },
     });
 
+    // FIX: `getNumberOfPages` is a method on the `jsPDF` instance in recent versions, not on the `internal` property.
+    const pageCount = doc.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(9);
+        doc.setTextColor(150);
+        doc.text(
+            'Created By Yash K Pathak',
+            doc.internal.pageSize.getWidth() / 2,
+            doc.internal.pageSize.getHeight() - 10,
+            { align: 'center' }
+        );
+    }
+
     doc.save('expense_report.pdf');
 };
 
@@ -76,6 +90,9 @@ export const exportToCsv = (transactions: Transaction[], summary: Summary) => {
     csvContent += `Total Rides Amount,${summary.totalRidesAmount}\r\n`;
     csvContent += `Total Petrol Expense,${summary.totalPetrolExpense}\r\n`;
     csvContent += `Net Profit,${summary.netProfit}\r\n`;
+
+    csvContent += "\r\n";
+    csvContent += "Created By Yash K Pathak\r\n";
 
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
